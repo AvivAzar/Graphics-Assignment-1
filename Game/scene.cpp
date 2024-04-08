@@ -130,17 +130,7 @@
 		}
 
 		if (screenNum == 0) {
-			glViewport(0, 256, 256, 256);
-		}
-		else if (screenNum == 1 ) {
-			glViewport(256, 256, 256, 256);
-		}
-		else if (screenNum == 2) {
-			glViewport(0, 0, 256, 256);
-		}
-
-		else if (screenNum == 3) {
-			glViewport(256, 0, 256, 256);
+			glViewport(0, 0, 800, 800);
 		}
 
 		for (unsigned int i = 0; i < shapes.size(); i++)
