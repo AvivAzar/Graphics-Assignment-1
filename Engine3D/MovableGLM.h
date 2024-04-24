@@ -9,6 +9,8 @@ public:
 	glm::mat4 MakeTrans() const;
 	void MyTranslate(glm::vec3 delta, int mode);
 	void MyRotate(float angle, const glm::vec3 &vec, int mode);
+	glm::mat4  MovableGLM::getRotMat();
+	glm::mat4  MovableGLM::getTransMat();
 	void MyScale(glm::vec3 scale);
 	void ZeroTrans();
 private:

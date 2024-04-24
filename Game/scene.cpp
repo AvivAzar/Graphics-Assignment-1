@@ -124,7 +124,7 @@
 		if (toClear)
 		{
 			if (shaderIndx > 0)
-				Clear(1, 0, 1, 1);
+				Clear(1, 1, 1, 1);
 			else
 				Clear(0, 0, 0, 0);
 		}
@@ -226,6 +226,7 @@
 		
 		return 0;
 	}
+
 	//return coordinates in global system for a tip of arm position is local system 
 	void Scene::MouseProccessing(int button)
 	{
@@ -233,15 +234,21 @@
 		{
 			if(button == 1 )
 			{				
-
-				MyTranslate(glm::vec3(-xrel/20.0f,0,0),0);
-				MyTranslate(glm::vec3(0,yrel/20.0f,0),0);
+				glm::vec3 rotX = glm::mat3(glm::transpose(getRotMat())) * glm::vec3(-xrel / 40.0f, 0, 0);
+				glm::vec3 rotY = glm::mat3(glm::transpose(getRotMat())) * glm::vec3(0, yrel / 40.0f, 0);
+				MyTranslate(rotX,0);
+				MyTranslate(rotY,0);
 				WhenTranslate();
 			}
 			else
 			{
-				MyRotate(xrel/2.0f,glm::vec3(1,0,0),0);
-				MyRotate(yrel/2.0f,glm::vec3(0,0,1),0);
+				glm::vec3 xRotVec(0, -1, 0);
+				glm::mat4 tRot = glm::transpose(getRotMat());
+				xRotVec = glm::mat3(tRot) * xRotVec;
+				MyRotate(xrel/2.0f, xRotVec ,0);
+				glm::vec3 yRotVec(-1, 0, 0);
+				yRotVec= glm::mat3(tRot) * yRotVec;
+				MyRotate(yrel/2.0f,yRotVec,0);
 				WhenRotate();
 			}
 		}
