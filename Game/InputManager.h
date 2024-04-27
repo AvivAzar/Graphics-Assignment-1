@@ -17,16 +17,15 @@ void mouse_callback(GLFWwindow* window, int button, int action, int mods)
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     Game* scn = (Game*)glfwGetWindowUserPointer(window);
-    if(yoffset<0) scn->MyScale(glm::vec3(0.96f,0.96f,0.96f));
+    if (yoffset < 0) scn->MyScale(glm::vec3(0.96f, 0.96f, 0.96f));
     else scn->MyScale(glm::vec3(1.04f, 1.04f, 1.04f));
-    //glm::vec3 rot = glm::mat3(glm::transpose(scn->getRotMat())) * glm::vec3(0, 0, yoffset);
+    //glm::vec3 rot = glm::mat3(glm::transpose(scn->getRotMat())) glm::vec3(0, 0, yoffset);
     //scn->MyTranslate(rot, 0);
 }
-
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     Game* scn = (Game*)glfwGetWindowUserPointer(window);
-    glm::vec3 rot;
+
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
         switch (key) {
         case GLFW_KEY_ESCAPE:
@@ -46,38 +45,46 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             scn->MultiplyRotationAngle();
             break;
         case GLFW_KEY_UP:
-            rot = glm::mat3(glm::transpose(scn->getRotMat())) * glm::vec3(-1.0f, 0.0f, 0.0f);
-            scn->MyRotate(4.0f, rot, 0);
+            scn->MyRotate(2.0f, glm::vec3(-1.0f, 0.0f, 0.0f), 0);
             break;
         case GLFW_KEY_DOWN:
-            rot = glm::mat3(glm::transpose(scn->getRotMat())) * glm::vec3(1.0f, 0.0f, 0.0f);
-            scn->MyRotate(4.0f, rot, 0);
+            scn->MyRotate(2.0f, glm::vec3(1.0f, 0.0f, 0.0f), 0);
             break;
         case GLFW_KEY_LEFT:
-            rot = glm::mat3(glm::transpose(scn->getRotMat())) * glm::vec3(0.0f, 1.0f, 0.0f);
-            scn->MyRotate(4.0f, rot, 0);
+            scn->MyRotate(2.0f, glm::vec3(0.0f, 1.0f, 0.0f), 0);
             break;
         case GLFW_KEY_RIGHT:
-            rot = glm::mat3(glm::transpose(scn->getRotMat())) * glm::vec3(0.0f, -1.0f, 0.0f);
-            scn->MyRotate(4.0f, rot, 0);
+            scn->MyRotate(2.0f, glm::vec3(0.0f, -1.0f, 0.0f), 0);
             break;
         case GLFW_KEY_R:
-            scn->RotateWall('R', true); // Rotate right wall clockwise
+            scn->RotateWall('R'); // Rotate right wall clockwise
             break;
         case GLFW_KEY_L:
-            scn->RotateWall('L', true); // Rotate left wall clockwise
+            scn->RotateWall('L'); // Rotate left wall clockwise
             break;
         case GLFW_KEY_U:
-            scn->RotateWall('U', true); // Rotate up wall clockwise
+            scn->RotateWall('U'); // Rotate up wall clockwise
             break;
         case GLFW_KEY_D:
-            scn->RotateWall('D', true); // Rotate down wall clockwise
+            scn->RotateWall('D'); // Rotate down wall clockwise
             break;
         case GLFW_KEY_B:
-            scn->RotateWall('B', true); // Rotate back wall clockwise
+            scn->RotateWall('B'); // Rotate back wall clockwise
             break;
         case GLFW_KEY_F:
-            scn->RotateWall('F', true); // Rotate front wall clockwise
+            scn->RotateWall('F'); // Rotate front wall clockwise
+            break;
+        case GLFW_KEY_W:
+            //scn->changeWall(true);
+            break;
+        case GLFW_KEY_Q:
+            //scn->changeWall(false);
+            break;
+        case GLFW_KEY_S:
+            scn->solver(scn);
+            break;
+        case GLFW_KEY_X:
+            scn->Shuffle(scn);
             break;
         default:
             break;

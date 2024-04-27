@@ -10,7 +10,10 @@ public:
     void MultiplyRotationAngle();
     void Init();
     void Update(const glm::mat4& MVP, const glm::mat4& Model, const int  shaderIndx);
-    void RotateWall(char wallId, bool clockwise);
+    void RotateWall(char wallId);
+    void Game::Shuffle(Game* scn);
+    void Game::solver(Game* scn);
+    void Game::changeWall(bool in);
     void FlipRotationDirection();
     void DivideRotationAngle();
     void WhenRotate();
